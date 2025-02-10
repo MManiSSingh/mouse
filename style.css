@@ -1,0 +1,28 @@
+/* reset */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font: 100% / 1.5 system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    max-width: 80ch;
+    width: 100%;
+    padding: 1em;
+}
+
+.container {
+    background-color: orangered;
+    color: aliceblue;
+    padding: 1em;
+    border-radius: 0.5em;
+}
