@@ -1,2 +1,3 @@
-# mouse
-An interactive visualization project for UCSD
+# A Mouse's Journey
+
+An interactive visualization project for UCSD.
