@@ -4,16 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="main.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>A Mouse's Journey</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="module" src="main.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="container">
-            Under construction...
-        </div>
+
+        <label for="gender">Select Gender:</label>
+        <select name="gender" id="gender">
+            <option value="all">Male and Female</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <svg id="histogram" width="800" height="500"></svg>
+
     </div>
 </body>
 
