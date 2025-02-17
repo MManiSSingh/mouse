@@ -25,11 +25,11 @@ svg.append("text")
     .style("font-size", "14px")
     .text("Density");
 
-// scales and axis setup
+// global scales and axes
 const x = d3.scaleLinear().range([0, width]);
-const xAxis = svg.append("g").attr("transform", `translate(0,${height})`);
-
 const y = d3.scaleLinear().range([height, 0]);
+
+const xAxis = svg.append("g").attr("transform", `translate(0,${height})`);
 const yAxis = svg.append("g");
 
 d3.csv("../data/tidy.csv").then(data => {
@@ -38,7 +38,6 @@ d3.csv("../data/tidy.csv").then(data => {
         d.activity = +d.activity;
     });
 
-    // initialize the visualization
     update(data, "all", "temperature");
 
     d3.select("#gender").on("change", function () {
@@ -58,13 +57,12 @@ d3.csv("../data/tidy.csv").then(data => {
 function update(data, gender, measure) {
     data.forEach(d => d[measure] = +d[measure]);
 
+    // filter data
     const estrusChecked = d3.select("#estrus").property("checked");
 
-    // separate male and female data
     let filteredMale = data.filter(d => d.gender.toLowerCase() === "male" && !isNaN(d[measure]));
     let filteredFemale = data.filter(d => d.gender.toLowerCase() === "female" && !isNaN(d[measure]));
 
-    // separate female data if estrus is checked
     let filteredEstrusTrue = [];
     let filteredEstrusFalse = [];
 
@@ -74,7 +72,10 @@ function update(data, gender, measure) {
     }
 
     let filteredData = [];
-    let binsMale = [], binsFemale = [], binsEstrusTrue = [], binsEstrusFalse = [];
+    let binsMale = []
+    let binsFemale = []
+    let binsEstrusTrue = []
+    let binsEstrusFalse = [];
 
     if (gender === "male") {
         filteredData = filteredMale;
@@ -84,7 +85,7 @@ function update(data, gender, measure) {
         filteredData = estrusChecked ? [...filteredMale, ...filteredEstrusTrue, ...filteredEstrusFalse] : [...filteredMale, ...filteredFemale];
     }
 
-    // set x-domain
+    // update x-axis domain
     if (filteredData.length > 0) {
         x.domain(d3.extent(filteredData, d => d[measure])).nice();
     } else {
@@ -143,6 +144,24 @@ function update(data, gender, measure) {
     ]);
     yAxis.transition().duration(500).call(d3.axisLeft(y));
 
+    // Remove any existing grid lines
+    svg.selectAll(".grid-line").remove();
+
+    // Add horizontal grid lines
+    svg.selectAll(".grid-line")
+        .data(y.ticks(10))
+        .enter()
+        .append("line")
+        .attr("class", "grid-line")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", d => y(d))
+        .attr("y2", d => y(d))
+        .attr("stroke", "lightgray")
+        .attr("stroke-opacity", 0.4)
+        .attr("stroke-dasharray", "4,4");
+
+
     // remove old bars
     svg.selectAll(".bar").remove();
 
@@ -158,7 +177,9 @@ function update(data, gender, measure) {
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
             .attr("height", d => height - y(d.density))
             .attr("fill", "steelblue")
-            .attr("opacity", 0.6);
+            .attr("opacity", 0.3)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1);
     }
 
     // draw female bars
@@ -172,8 +193,10 @@ function update(data, gender, measure) {
             .attr("y", d => y(d.density))
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
             .attr("height", d => height - y(d.density))
-            .attr("fill", "pink")
-            .attr("opacity", 0.6);
+            .attr("fill", "orange")
+            .attr("opacity", 0.3)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1);
     }
 
     // draw estrus bars
@@ -187,8 +210,10 @@ function update(data, gender, measure) {
             .attr("y", d => y(d.density))
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
             .attr("height", d => height - y(d.density))
-            .attr("fill", "pink")
-            .attr("opacity", 0.6);
+            .attr("fill", "orange")
+            .attr("opacity", 0.3)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1);
     }
 
     if (estrusChecked && (gender === "female" || gender === "all")) {
@@ -201,8 +226,10 @@ function update(data, gender, measure) {
             .attr("y", d => y(d.density))
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
             .attr("height", d => height - y(d.density))
-            .attr("fill", "green")
-            .attr("opacity", 0.6);
+            .attr("fill", "red")
+            .attr("opacity", 0.3)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1);
     }
 
     // remove old labels
@@ -227,8 +254,3 @@ function update(data, gender, measure) {
         .style("font-size", "14px")
         .text("Density");
 }
-
-// attach event listener to estrus checkbox
-d3.select("#estrus").on("change", function () {
-    update(d3.select("#measure").node().value, d3.select("#gender").node().value);
-});
