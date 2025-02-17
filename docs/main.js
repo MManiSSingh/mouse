@@ -255,4 +255,66 @@ function update(data, gender, measure) {
         .style("font-size", "14px")
         .style("font-family", "Georgia")
         .text("Density");
+        
+    // Remove old legend items
+    legend.selectAll("*").remove();
+
+    // Create legend items
+    let legendItems = [
+        { label: "Male", color: "steelblue", active: gender === "male" || gender === "all" },
+    ];
+
+    if (estrusChecked) {
+        legendItems.push({ label: "Female (Estrus)", color: "red", active: gender === "female" || gender === "all" });
+        legendItems.push({ label: "Female (No Estrus)", color: "orange", active: gender === "female" || gender === "all" });
+    } else {
+        legendItems.push({ label: "Female", color: "orange", active: gender === "female" || gender === "all" });
+    }
+
+    // Append legend items
+    let first = 0;
+    let maxLabelWidth = 0;
+    legendItems.forEach((item, index) => {
+        if (item.active) {
+            // Create a temporary text element to measure the width
+            let tempText = legend.append("text")
+                .text(item.label)
+                .style("font-size", "12px")
+                .style("visibility", "hidden"); // Make it invisible for measurement
+
+            let labelWidth = tempText.node().getComputedTextLength(); // Get the width in pixels
+            tempText.remove();
+
+            legend.append("rect")
+                .attr("x", 0)
+                .attr("y", first * 20)
+                .attr("width", 15)
+                .attr("height", 15)
+                .attr("fill", item.color)
+                .style("opacity", 0.3);
+
+            legend.append("text")
+                .attr("x", 20)
+                .attr("y", first * 20 + 12)
+                .text(item.label)
+                .style("font-size", "12px");
+
+            first += 1;
+            maxLabelWidth = Math.max(maxLabelWidth, labelWidth + 30);
+        }
+    });
+
+// Add a rectangle around the legend for the border
+legend.append("rect")
+    .attr("x", -5)
+    .attr("y", -5)
+    .attr("width", maxLabelWidth)
+    .attr("height", (first * 20) + 10)
+    .attr("fill", "none")
+    .attr("stroke", "black")
+    .attr("stroke-width", 1);
 }
+
+const legend = svg.append("g")
+.attr("class", "legend")
+.attr("transform", `translate(${width - 150}, 0)`);
