@@ -21,13 +21,12 @@ body {
 
 }
 
-
 /* Controls */
 .controls {
     display: flex;
     flex-direction: row;
     gap: 15px;
-    margin-top: 20px;
+    margin: 20px 0;
     align-items: center;
     font-family: 'Georgia', serif;
 }
@@ -80,8 +79,9 @@ body {
 }
 
 #histogram {
-    width: 800px;
-    height: 500px;
+    max-width: 800px;
+    height: 540px;
+    padding: 20px;
     background-color: white; 
     border-radius: 8px; 
 }
@@ -111,7 +111,7 @@ body {
     font-style: italic;
   }
 
-  #title {
+#title {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -121,8 +121,9 @@ body {
     font-weight: 300;
   }
 
-  #write-up {
+#write-up {
     max-width: 800px;
+    min-width: 300px;
     margin: 40px 0;
     padding: 20px;
     background-color: white;
@@ -160,5 +161,3 @@ body {
   #write-up ul li {
     margin-bottom: 10px;
   }
-  
-  
