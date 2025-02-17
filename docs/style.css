@@ -1,161 +1,185 @@
-/* reset */
+/* CSS Variables for consistency */
+:root {
+  --primary-color: orangered;
+  --secondary-color: steelblue;
+  --accent-color: red;
+  --hover-bg: #fff3e0;
+  --font-family: 'Georgia', serif;
+  --tooltip-bg: rgba(70, 130, 180, 0.9);
+  --tooltip-color: white;
+  --tooltip-padding: 8px;
+  --transition-duration: 0.3s;
+}
+
+/* Reset */
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    background-color: rgb(220, 220, 220);
-}   
-
-body {
-    margin: 0;
-    padding: 0;
-    font: 100% / 1.5 system-ui, sans-serif;
-    display: flex;
-    justify-content: center;
-    flex-direction: column; 
-    align-items: center; 
-    padding-left: 20px;
-
+  background-color: rgb(220, 220, 220);
 }
 
-/* Controls */
+body {
+  margin: 0;
+  padding: 0;
+  font: 100% / 1.5 system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 20px;
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  padding: var(--tooltip-padding);
+  background: var(--tooltip-bg);
+  color: var(--tooltip-color);
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-duration) ease;
+}
+
+/* Controls styling */
 .controls {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-    align-items: center;
-    font-family: 'Georgia', serif;
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  align-items: center;
+  font-family: var(--font-family);
 }
 
 .controls label {
-    display: flex;
-    font-size: 16px;
-    font-weight: bold;
-    align-items: center;
-    font-family: 'Georgia', serif;
+  display: flex;
+  font-size: 16px;
+  font-weight: bold;
+  align-items: center;
+  font-family: var(--font-family);
 }
 
-.controls select {
-    padding: 10px;
-    margin-right: 20px;
-    font-size: 14px;
-    border: 1px solid #808080;
-    border-radius: 5px;
-    background-color: white;
-    transition: all 0.3s ease-in-out;
-    font-family: 'Georgia', serif;
-}
-
+.controls select,
 .controls input[type="checkbox"] {
-    padding: 10px;
-    margin-right: 10px;
-    font-size: 14px;
-    border: 1px solid #808080;
-    border-radius: 5px;
-    background-color: white;
-    transition: all 0.3s ease-in-out;
-    font-family: 'Georgia', serif; 
+  padding: 10px;
+  margin-right: 20px;
+  font-size: 14px;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  background-color: white;
+  transition: all var(--transition-duration) ease-in-out;
+  font-family: var(--font-family);
 }
 
 .controls select:hover,
-.controls input[type = "checkbox"]:hover {
-    border-color: #808080;
+.controls input[type="checkbox"]:hover {
+  border-color: #808080;
 }
 
 .controls select:focus,
-.controls input[type = "checkbox"]:focus {
-    outline: none;
-    border-color: black;
-    background-color: #fff3e0;
+.controls input[type="checkbox"]:focus {
+  outline: none;
+  border-color: black;
+  background-color: var(--hover-bg);
 }
 
 .controls input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
+/* Histogram container */
 #histogram {
-    max-width: 800px;
-    height: 540px;
-    padding: 20px;
-    background-color: white; 
-    border-radius: 8px; 
+  max-width: 800px;
+  height: 540px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
 }
 
+/* Wrapper */
 .wrapper {
-    max-width: 105ch;
-    width: 100%;
-    padding: 1em;
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
+  max-width: 105ch;
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.container {
-    background-color: orangered;
-    color: aliceblue;
-    padding: 1em;
-    border-radius: 0.5em;
-}
-
+/* Title and question */
 #question {
-    text-align: center;
-    margin-top: 80px; 
-    font-size: 18px;
-    color: #000000; 
-    font-family: 'Georgia', serif; 
-    font-style: italic;
+  text-align: center;
+  margin-top: 80px;
+  font-size: 18px;
+  color: #000;
+  font-family: var(--font-family);
+  font-style: italic;
 }
 
 #title {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 32px;
-    color: #000000;
-    font-family: 'Georgia', serif;
-    font-weight: 300;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 32px;
+  color: #000;
+  font-family: var(--font-family);
+  font-weight: 300;
 }
 
+/* Write-Up Section */
 #write-up {
-    width: 800px;
-    margin: 40px 0;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: 'Georgia', serif;
-    line-height: 1.6;
+  width: 800px;
+  margin: 40px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-family);
+  line-height: 1.6;
 }
-  
+
 #write-up h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #000000;
-    font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #000;
+  font-weight: 700;
 }
 
 #write-up h3 {
-    font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #000000;
-    font-weight: 100;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #000;
+  font-weight: 100;
 }
 
 #write-up p {
-    margin-bottom: 20px;
-    color: #000000;
+  margin-bottom: 20px;
+  color: #000;
 }
 
 #write-up ul {
-    margin: 20px 0;
-    padding-left: 20px;
+  margin: 20px 0;
+  padding-left: 20px;
 }
 
-  #write-up ul li {
-    margin-bottom: 10px;
+#write-up ul li {
+  margin-bottom: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  #write-up,
+  #histogram {
+    width: 95%;
+  }
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
