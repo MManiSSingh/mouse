@@ -20,6 +20,54 @@ body {
     padding-left: 20px;
 
 }
+
+
+/* Controls */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.controls label {
+    font-size: 16px;
+    color: #000000;
+    font-weight: 500;
+}
+
+.controls select,
+.controls input[type="checkbox"] {
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 14px;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.controls select:hover,
+.controls input[type = "checkbox"]:hover {
+    border-color: #808080;
+}
+
+.controls select:focus,
+.controls input[type = "checkbox"]:focus {
+    outline: none;
+    border-color: black;
+    background-color: #fff3e0;
+}
+
+.controls select option {
+    padding: 10px;
+}
+
+.controls input[type = "checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
 #histogram {
     width: 800px;
     height: 500px;
