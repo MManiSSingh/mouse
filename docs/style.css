@@ -29,12 +29,15 @@ body {
     gap: 15px;
     margin-top: 20px;
     align-items: center;
+    font-family: 'Georgia', serif;
 }
 
 .controls label {
     font-size: 16px;
     color: #000000;
     font-weight: 500;
+    align-items: center;
+    font-family: 'Georgia', serif;
 }
 
 .controls select,
@@ -46,6 +49,7 @@ body {
     border-radius: 5px;
     background-color: white;
     transition: all 0.3s ease-in-out;
+    font-family: 'Georgia', serif;
 }
 
 .controls select:hover,
@@ -64,9 +68,15 @@ body {
     padding: 10px;
 }
 
-.controls input[type = "checkbox"] {
+.controls input[type="checkbox"] {
     width: 20px;
     height: 20px;
+    margin-left: 5px;
+}
+
+.controls input[type="checkbox"] + label {
+    display: inline-block;
+    vertical-align: middle; 
 }
 
 #histogram {
