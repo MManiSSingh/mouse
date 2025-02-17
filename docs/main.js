@@ -32,7 +32,7 @@ const y = d3.scaleLinear().range([height, 0]);
 const xAxis = svg.append("g").attr("transform", `translate(0,${height})`);
 const yAxis = svg.append("g");
 
-d3.csv("../data/tidy.csv").then(data => {
+d3.csv("data/tidy.csv").then(data => {
     data.forEach(d => {
         d.temperature = +d.temperature;
         d.activity = +d.activity;
