@@ -26,3 +26,12 @@ body {
     padding: 1em;
     border-radius: 0.5em;
 }
+
+#question {
+    text-align: center;
+    margin-top: 80px; 
+    font-size: 18px;
+    color: #000000; 
+    font-family: 'Georgia', serif; 
+    font-style: italic;
+  }
