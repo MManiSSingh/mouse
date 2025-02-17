@@ -25,9 +25,10 @@ body {
 /* Controls */
 .controls {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row;
+    gap: 15px;
     margin-top: 20px;
+    align-items: center;
 }
 
 .controls label {
