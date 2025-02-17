@@ -243,7 +243,7 @@ function update(data, gender, measure) {
         .attr("y", height + 40)
         .attr("text-anchor", "middle")
         .style("font-size", "14px")
-        .style("font-family", "Georgia") 
+        .style("font-family", "Georgia")
         .text(measure.charAt(0).toUpperCase() + measure.slice(1));
 
     svg.append("text")
@@ -253,6 +253,6 @@ function update(data, gender, measure) {
         .attr("y", -40)
         .attr("text-anchor", "middle")
         .style("font-size", "14px")
-        .style("font-family", "Georgia") 
+        .style("font-family", "Georgia")
         .text("Density");
 }
