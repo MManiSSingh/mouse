@@ -38,10 +38,7 @@ d3.csv("../data/tidy.csv").then(data => {
         d.activity = +d.activity;
     });
 
-    // initialize domain based on temperature
-    x.domain(d3.extent(data, d => d.temperature));
-    xAxis.call(d3.axisBottom(x).tickFormat(d3.format(".1f")));
-
+    // initialize the visualization
     update(data, "all", "temperature");
 
     d3.select("#gender").on("change", function () {
@@ -51,36 +48,51 @@ d3.csv("../data/tidy.csv").then(data => {
     d3.select("#measure").on("change", function () {
         update(data, d3.select("#gender").node().value, this.value);
     });
+
+    d3.select("#estrus").on("change", function () {
+        update(data, d3.select("#gender").node().value, d3.select("#measure").node().value);
+    });
 });
+
 
 function update(data, gender, measure) {
     data.forEach(d => d[measure] = +d[measure]);
+
+    const estrusChecked = d3.select("#estrus").property("checked");
 
     // separate male and female data
     let filteredMale = data.filter(d => d.gender.toLowerCase() === "male" && !isNaN(d[measure]));
     let filteredFemale = data.filter(d => d.gender.toLowerCase() === "female" && !isNaN(d[measure]));
 
+    // separate female data if estrus is checked
+    let filteredEstrusTrue = [];
+    let filteredEstrusFalse = [];
+
+    if (estrusChecked) {
+        filteredEstrusTrue = filteredFemale.filter(d => d.estrus.toLowerCase() === "true");
+        filteredEstrusFalse = filteredFemale.filter(d => d.estrus.toLowerCase() === "false");
+    }
+
     let filteredData = [];
-    let binsMale = [], binsFemale = [];
+    let binsMale = [], binsFemale = [], binsEstrusTrue = [], binsEstrusFalse = [];
 
     if (gender === "male") {
         filteredData = filteredMale;
     } else if (gender === "female") {
-        filteredData = filteredFemale;
-    } else { // "all" selected
-        filteredData = [...filteredMale, ...filteredFemale];
+        filteredData = estrusChecked ? [...filteredEstrusTrue, ...filteredEstrusFalse] : filteredFemale;
+    } else {
+        filteredData = estrusChecked ? [...filteredMale, ...filteredEstrusTrue, ...filteredEstrusFalse] : [...filteredMale, ...filteredFemale];
     }
 
-    // Ensure x-domain is correctly set based on the selected measure
+    // set x-domain
     if (filteredData.length > 0) {
         x.domain(d3.extent(filteredData, d => d[measure])).nice();
     } else {
-        x.domain([0, 1]); // Default domain if no data available
+        x.domain([0, 1]);
     }
 
     xAxis.transition().duration(500).call(d3.axisBottom(x).tickFormat(d3.format(".1f")));
 
-    // Generate histogram bins
     const histogram = d3.histogram()
         .value(d => d[measure])
         .domain(x.domain())
@@ -90,12 +102,19 @@ function update(data, gender, measure) {
         binsMale = histogram(filteredMale);
     }
     if (gender === "female" || gender === "all") {
-        binsFemale = histogram(filteredFemale);
+        if (estrusChecked) {
+            binsEstrusTrue = histogram(filteredEstrusTrue);
+            binsEstrusFalse = histogram(filteredEstrusFalse);
+        } else {
+            binsFemale = histogram(filteredFemale);
+        }
     }
 
     // compute densities
     const totalMale = filteredMale.length || 1;
     const totalFemale = filteredFemale.length || 1;
+    const totalEstrusTrue = filteredEstrusTrue.length || 1;
+    const totalEstrusFalse = filteredEstrusFalse.length || 1;
 
     binsMale.forEach(bin => {
         const width = bin.x1 - bin.x0;
@@ -107,10 +126,20 @@ function update(data, gender, measure) {
         bin.density = width > 0 ? bin.length / (totalFemale * width) : 0;
     });
 
+    binsEstrusTrue.forEach(bin => {
+        const width = bin.x1 - bin.x0;
+        bin.density = width > 0 ? bin.length / (totalEstrusTrue * width) : 0;
+    });
+
+    binsEstrusFalse.forEach(bin => {
+        const width = bin.x1 - bin.x0;
+        bin.density = width > 0 ? bin.length / (totalEstrusFalse * width) : 0;
+    });
+
     // update y-axis domain
     y.domain([
         0,
-        d3.max([...binsMale, ...binsFemale], d => d.density) || 1
+        d3.max([...binsMale, ...binsFemale, ...binsEstrusTrue, ...binsEstrusFalse], d => d.density) || 1
     ]);
     yAxis.transition().duration(500).call(d3.axisLeft(y));
 
@@ -133,7 +162,7 @@ function update(data, gender, measure) {
     }
 
     // draw female bars
-    if (gender === "female" || gender === "all") {
+    if (!estrusChecked && (gender === "female" || gender === "all")) {
         svg.selectAll(".bar-female")
             .data(binsFemale)
             .enter()
@@ -144,6 +173,35 @@ function update(data, gender, measure) {
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
             .attr("height", d => height - y(d.density))
             .attr("fill", "pink")
+            .attr("opacity", 0.6);
+    }
+
+    // draw estrus bars
+    if (estrusChecked && (gender === "female" || gender === "all")) {
+        svg.selectAll(".bar-estrus-false")
+            .data(binsEstrusFalse)
+            .enter()
+            .append("rect")
+            .attr("class", "bar bar-estrus-false")
+            .attr("x", d => x(d.x0))
+            .attr("y", d => y(d.density))
+            .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+            .attr("height", d => height - y(d.density))
+            .attr("fill", "pink")
+            .attr("opacity", 0.6);
+    }
+
+    if (estrusChecked && (gender === "female" || gender === "all")) {
+        svg.selectAll(".bar-estrus-true")
+            .data(binsEstrusTrue)
+            .enter()
+            .append("rect")
+            .attr("class", "bar bar-estrus-true")
+            .attr("x", d => x(d.x0))
+            .attr("y", d => y(d.density))
+            .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+            .attr("height", d => height - y(d.density))
+            .attr("fill", "green")
             .attr("opacity", 0.6);
     }
 
@@ -169,3 +227,8 @@ function update(data, gender, measure) {
         .style("font-size", "14px")
         .text("Density");
 }
+
+// attach event listener to estrus checkbox
+d3.select("#estrus").on("change", function () {
+    update(d3.select("#measure").node().value, d3.select("#gender").node().value);
+});
