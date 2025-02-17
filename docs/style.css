@@ -1,17 +1,24 @@
 /* reset */
 
 *,
+/* reset */
+*,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+html {
+    background-color: rgb(220, 220, 220);
+    }   
+    
 body {
     margin: 0;
     padding: 0;
     font: 100% / 1.5 system-ui, sans-serif;
     display: flex;
     justify-content: center;
+
 }
 
 .wrapper {
