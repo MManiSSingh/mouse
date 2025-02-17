@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>A Mouse's Journey</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script type="module" src="main.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>A Mouse's Journey</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script type="module" src="main.js"></script>
 </head>
-
 <body>
+  <header id="title" role="banner">
+    <h1>A Mouse's Journey</h1>
+  </header>
+  <main class="wrapper">
+    <section id="question" aria-label="Visualization question">
+      <p>
+        How does a female mice's estrus cycle affect its daily activity and temperature compared to male mice?
+      </p>
+    </section>
 
-    <div id = "title">A Mouse's Journey</div>
-    <div class="wrapper">
+    <section class="controls" aria-label="Visualization controls">
+      <p>Use the controls below to filter the data and adjust the visualization:</p>
+      <label for="measure">Measure:
+        <select name="measure" id="measure" aria-label="Select measure">
+          <option value="temperature">Temperature</option>
+          <option value="activity">Activity</option>
+        </select>
+      </label>
+      <label for="gender">Gender:
+        <select name="gender" id="gender" aria-label="Select gender">
+          <option value="all">Male and Female</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </label>
+      <label for="estrus">
+        <input type="checkbox" id="estrus" name="estrus" aria-label="Toggle estrus filter" /> Estrus
+      </label>
+    </section>
 
+    <section>
+      <svg id="histogram" width="800" height="500"></svg>
+    </section>
 
-        <div id="question">
-            How does a female mice's estrus cycle affect its daily activity and temperature compared to male mice?
-        </div>
-
-        <div class="controls">
-            <label for="measure">Measure:</label>
-            <select name="measure" id="measure">
-                <option value="temperature">Temperature</option>
-                <option value="activity">Activity</option>
-            </select>
-
-            <label for="gender">Gender:</label>
-            <select name="gender" id="gender">
-                <option value="all">Male and Female</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-
-            <label for="estrus">
-                <input type="checkbox" id="estrus" name="estrus"> Estrus
-            </label>
-        </div>
-
-        <svg id="histogram" width="800" height="500"></svg>
-
-        <!-- Write-Up Section -->
-        <div id="write-up">
-            <h3>How we got here:</h3>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ante vitae augue ullamcorper, non gravida enim congue. Integer vel orci dolor. Cras sit amet eros a lectus venenatis volutpat. Vestibulum condimentum, lorem a condimentum placerat, nisl mi vulputate urna, in bibendum felis risus et leo. Integer sollicitudin mi a arcu vehicula, id viverra ante sodales. Mauris sollicitudin vulputate ex, et ultricies libero cursus non. Curabitur et augue id arcu ultricies bibendum. Proin volutpat orci vitae nunc pretium varius.
-    
-            </p>
-            <h3>Design Rationale:</h3>
-            <p>
-            Donec facilisis euismod dui, a tincidunt felis iaculis at. Phasellus tincidunt purus ut sem lobortis, non volutpat ante gravida. Integer volutpat, purus ut malesuada convallis, nisi libero dignissim est, et gravida justo ipsum vel velit. Aliquam erat volutpat. Sed maximus eros turpis, sit amet scelerisque felis rhoncus non. Nullam volutpat purus eu nisi luctus, sed fringilla mi pretium. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-
-            </p>
-            <h3>Development Process:</h3>
-            <p>
-            Sed ultricies orci et lectus vehicula, in volutpat ipsum vestibulum. Curabitur in ex id magna laoreet elementum. Phasellus vel ex nunc. Aliquam erat volutpat. Duis vehicula ligula in libero varius, in convallis lorem volutpat. Ut interdum, felis a cursus aliquet, nisl felis faucibus lorem, sit amet efficitur urna elit vitae augue. In efficitur risus vitae enim egestas, vitae faucibus tortor tristique. Nullam vestibulum enim est, sed facilisis libero rhoncus at.
-
-            </p>
-        </div>
-
-    </div>
+    <section id="write-up" aria-label="Project write-up">
+      <h3>How we got here:</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ante vitae augue ullamcorper, non gravida enim congue. Integer vel orci dolor. Cras sit amet eros a lectus venenatis volutpat. Vestibulum condimentum, lorem a condimentum placerat, nisl mi vulputate urna, in bibendum felis risus et leo. Integer sollicitudin mi a arcu vehicula, id viverra ante sodales. Mauris sollicitudin vulputate ex, et ultricies libero cursus non. Curabitur et augue id arcu ultricies bibendum. Proin volutpat orci vitae nunc pretium varius.
+      </p>
+      <h3>Design Rationale:</h3>
+      <p>
+        Donec facilisis euismod dui, a tincidunt felis iaculis at. Phasellus tincidunt purus ut sem lobortis, non volutpat ante gravida. Integer volutpat, purus ut malesuada convallis, nisi libero dignissim est, et gravida justo ipsum vel velit. Aliquam erat volutpat. Sed maximus eros turpis, sit amet scelerisque felis rhoncus non. Nullam volutpat purus eu nisi luctus, sed fringilla mi pretium.
+      </p>
+      <h3>Development Process:</h3>
+      <p>
+        Sed ultricies orci et lectus vehicula, in volutpat ipsum vestibulum. Curabitur in ex id magna laoreet elementum. Phasellus vel ex nunc. Aliquam erat volutpat. Duis vehicula ligula in libero varius, in convallis lorem volutpat. Ut interdum, felis a cursus aliquet, nisl felis faucibus lorem, sit amet efficitur urna elit vitae augue. In efficitur risus vitae enim egestas, vitae faucibus tortor tristique. Nullam vestibulum enim est, sed facilisis libero rhoncus at.
+      </p>
+    </section>
+  </main>
+  <footer>
+    <p>
+      Help: Hover over bars for more details. Use scroll (zoom) on the chart to explore data ranges.
+    </p>
+  </footer>
 </body>
-
 </html>
