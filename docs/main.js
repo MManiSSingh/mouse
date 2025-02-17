@@ -165,71 +165,77 @@ function update(data, gender, measure) {
     // remove old bars
     svg.selectAll(".bar").remove();
 
-    // draw male bars
+    // Draw male bars
     if (gender === "male" || gender === "all") {
         svg.selectAll(".bar-male")
             .data(binsMale)
-            .enter()
-            .append("rect")
+            .join("rect")
             .attr("class", "bar bar-male")
             .attr("x", d => x(d.x0))
-            .attr("y", d => y(d.density))
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-            .attr("height", d => height - y(d.density))
             .attr("fill", "steelblue")
             .attr("opacity", 0.3)
             .attr("stroke", "black")
-            .attr("stroke-width", 1);
+            .attr("stroke-width", 1)
+            .attr("y", height)
+            .attr("height", 0)
+            .transition().duration(500)
+            .attr("y", d => y(d.density))
+            .attr("height", d => height - y(d.density));
     }
 
-    // draw female bars
+    // Draw female bars
     if (!estrusChecked && (gender === "female" || gender === "all")) {
         svg.selectAll(".bar-female")
             .data(binsFemale)
-            .enter()
-            .append("rect")
+            .join("rect")
             .attr("class", "bar bar-female")
             .attr("x", d => x(d.x0))
-            .attr("y", d => y(d.density))
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-            .attr("height", d => height - y(d.density))
             .attr("fill", "orange")
             .attr("opacity", 0.3)
             .attr("stroke", "black")
-            .attr("stroke-width", 1);
+            .attr("stroke-width", 1)
+            .attr("y", height)
+            .attr("height", 0)
+            .transition().duration(500)
+            .attr("y", d => y(d.density))
+            .attr("height", d => height - y(d.density));
     }
 
-    // draw estrus bars
+    // Draw estrus bars
     if (estrusChecked && (gender === "female" || gender === "all")) {
         svg.selectAll(".bar-estrus-false")
             .data(binsEstrusFalse)
-            .enter()
-            .append("rect")
+            .join("rect")
             .attr("class", "bar bar-estrus-false")
             .attr("x", d => x(d.x0))
-            .attr("y", d => y(d.density))
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-            .attr("height", d => height - y(d.density))
             .attr("fill", "orange")
             .attr("opacity", 0.3)
             .attr("stroke", "black")
-            .attr("stroke-width", 1);
-    }
+            .attr("stroke-width", 1)
+            .attr("y", height)
+            .attr("height", 0)
+            .transition().duration(500)
+            .attr("y", d => y(d.density))
+            .attr("height", d => height - y(d.density));
 
-    if (estrusChecked && (gender === "female" || gender === "all")) {
         svg.selectAll(".bar-estrus-true")
             .data(binsEstrusTrue)
-            .enter()
-            .append("rect")
+            .join("rect")
             .attr("class", "bar bar-estrus-true")
             .attr("x", d => x(d.x0))
-            .attr("y", d => y(d.density))
             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-            .attr("height", d => height - y(d.density))
             .attr("fill", "red")
             .attr("opacity", 0.3)
             .attr("stroke", "black")
-            .attr("stroke-width", 1);
+            .attr("stroke-width", 1)
+            .attr("y", height)
+            .attr("height", 0)
+            .transition().duration(500)
+            .attr("y", d => y(d.density))
+            .attr("height", d => height - y(d.density));
     }
 
     // remove old labels
@@ -255,7 +261,7 @@ function update(data, gender, measure) {
         .style("font-size", "14px")
         .style("font-family", "Georgia")
         .text("Density");
-        
+
     // Remove old legend items
     legend.selectAll("*").remove();
 
@@ -304,17 +310,17 @@ function update(data, gender, measure) {
         }
     });
 
-// Add a rectangle around the legend for the border
-legend.append("rect")
-    .attr("x", -5)
-    .attr("y", -5)
-    .attr("width", maxLabelWidth)
-    .attr("height", (first * 20) + 10)
-    .attr("fill", "none")
-    .attr("stroke", "black")
-    .attr("stroke-width", 1);
+    // Add a rectangle around the legend for the border
+    legend.append("rect")
+        .attr("x", -5)
+        .attr("y", -5)
+        .attr("width", maxLabelWidth)
+        .attr("height", (first * 20) + 10)
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
 }
 
 const legend = svg.append("g")
-.attr("class", "legend")
-.attr("transform", `translate(${width - 150}, 0)`);
+    .attr("class", "legend")
+    .attr("transform", `translate(${width - 150}, 0)`);
