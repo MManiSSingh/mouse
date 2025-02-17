@@ -15,8 +15,8 @@ body {
     font: 100% / 1.5 system-ui, sans-serif;
     display: flex;
     justify-content: center;
-    flex-direction: column; /* Align elements vertically */
-    align-items: center; /* Align elements horizontally */
+    flex-direction: column; 
+    align-items: center; 
     padding-left: 20px;
 
 }
@@ -31,6 +31,9 @@ body {
     max-width: 105ch;
     width: 100%;
     padding: 1em;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
 }
 
 .container {
