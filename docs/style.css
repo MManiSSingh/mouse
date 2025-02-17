@@ -45,4 +45,45 @@ body {
     font-family: 'Georgia', serif;
     font-weight: 300;
   }
+
+  #write-up {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+  }
+  
+  #write-up h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000000;
+    font-weight: 700;
+  }
+  
+  #write-up h3 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #000000;
+    font-weight: 100;
+  }
+  
+  #write-up p {
+    margin-bottom: 20px;
+    color: #000000;
+  }
+  
+  #write-up ul {
+    margin: 20px 0;
+    padding-left: 20px;
+  }
+  
+  #write-up ul li {
+    margin-bottom: 10px;
+  }
+  
   
