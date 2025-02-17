@@ -7,7 +7,7 @@
 
 html {
     background-color: rgb(220, 220, 220);
-    }   
+}   
 
 body {
     margin: 0;
@@ -24,31 +24,40 @@ body {
 /* Controls */
 .controls {
     display: flex;
-    flex-direction: row;
-    gap: 15px;
+    gap: 10px;
     margin: 20px 0;
     align-items: center;
     font-family: 'Georgia', serif;
 }
 
 .controls label {
+    display: flex;
     font-size: 16px;
-    color: #000000;
-    font-weight: 500;
+    font-weight: bold;
     align-items: center;
     font-family: 'Georgia', serif;
 }
 
-.controls select,
-.controls input[type="checkbox"] {
+.controls select {
     padding: 10px;
-    margin-top: 5px;
+    margin-right: 20px;
     font-size: 14px;
     border: 1px solid #808080;
     border-radius: 5px;
     background-color: white;
     transition: all 0.3s ease-in-out;
     font-family: 'Georgia', serif;
+}
+
+.controls input[type="checkbox"] {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Georgia', serif; 
 }
 
 .controls select:hover,
@@ -63,19 +72,9 @@ body {
     background-color: #fff3e0;
 }
 
-.controls select option {
-    padding: 10px;
-}
-
 .controls input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    margin-left: 5px;
-}
-
-.controls input[type="checkbox"] + label {
-    display: inline-block;
-    vertical-align: middle; 
 }
 
 #histogram {
@@ -109,7 +108,7 @@ body {
     color: #000000; 
     font-family: 'Georgia', serif; 
     font-style: italic;
-  }
+}
 
 #title {
     position: absolute;
@@ -119,11 +118,10 @@ body {
     color: #000000;
     font-family: 'Georgia', serif;
     font-weight: 300;
-  }
+}
 
 #write-up {
-    max-width: 800px;
-    min-width: 300px;
+    width: 800px;
     margin: 40px 0;
     padding: 20px;
     background-color: white;
@@ -131,33 +129,33 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Georgia', serif;
     line-height: 1.6;
-  }
+}
   
-  #write-up h2 {
+#write-up h2 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #000000;
     font-weight: 700;
-  }
-  
-  #write-up h3 {
+}
+
+#write-up h3 {
     font-size: 20px;
     margin-top: 20px;
     margin-bottom: 10px;
     color: #000000;
     font-weight: 100;
-  }
-  
-  #write-up p {
+}
+
+#write-up p {
     margin-bottom: 20px;
     color: #000000;
-  }
-  
-  #write-up ul {
+}
+
+#write-up ul {
     margin: 20px 0;
     padding-left: 20px;
-  }
-  
+}
+
   #write-up ul li {
     margin-bottom: 10px;
-  }
+}
