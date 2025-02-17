@@ -35,3 +35,14 @@ body {
     font-family: 'Georgia', serif; 
     font-style: italic;
   }
+
+  #title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 32px;
+    color: #000000;
+    font-family: 'Georgia', serif;
+    font-weight: 300;
+  }
+  
